@@ -1,11 +1,25 @@
 const express = require("express");
 const connectDB = require("./config/db");
 const router = express.Router();
+
+// passport
+const session = require("express-session"); // 세션 설정
+const passport = require("passport");
+const passportConfig = require("../middleware/passport");
+
 //const path = require('path');
 
 const app = express();
 
+// 세션 활성화
+app.use(
+  session({ secret: "mysecret", resave: true, saveUninitialized: false })
+);
+app.use(passport.initialize()); // passport 구동
+app.use(passport.session()); // 세션 연결
+
 connectDB();
+passportConfig();
 
 app.get("/", async (req, res) => {
   console.log("hi");
