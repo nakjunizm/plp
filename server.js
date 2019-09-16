@@ -7,8 +7,9 @@ const app = express();
 
 connectDB();
 
-router.get("/", async (req, res) => {
-  res.status(200).send(`It's up and running!`);
+app.get("/", async (req, res) => {
+  console.log("hi");
+  return res.status(200).send(`It's up and running!`);
 });
 
 const PORT = process.env.PORT || 5000;
