@@ -1,0 +1,20 @@
+{
+  "name": "powerlifting",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon --watch server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^3.2.2",
+    "express": "^4.17.1",
+    "mocha": "^6.2.0",
+    "mongoose": "^5.7.1",
+    "nodemon": "^1.19.1"
+  }
+}
