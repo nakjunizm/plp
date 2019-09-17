@@ -5,7 +5,7 @@ const router = express.Router();
 // passport
 const session = require("express-session"); // 세션 설정
 const passport = require("passport");
-const passportConfig = require("../middleware/passport");
+const passportConfig = require("./middleware/passport");
 
 //const path = require('path');
 
@@ -25,6 +25,11 @@ app.get("/", async (req, res) => {
   console.log("hi");
   return res.status(200).send(`It's up and running!`);
 });
+app.get("/login", async (req, res) => {
+  return res.status(200).send(`Login Page!`);
+});
+
+app.use("/auth", require("./routes/auth"));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

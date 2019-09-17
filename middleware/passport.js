@@ -21,21 +21,22 @@ module.exports = () => {
         clientSecret: config.get("google.clientSecret"),
         callbackURL: config.get("google.callbackURL")
       },
-      async (accessToken, refreshToken, profile, done) => {
+      async (accessToken, refreshToken, profile, cb) => {
         try {
-          const user = await User.findOne({ id: profile.id });
+          const user = await User.findUserByGoogleId(profile.id);
           if (user) {
-            return done(null, user);
+            return cb(null, user);
           } // 회원 정보가 있으면 로그인
           const newUser = new User({
             // 없으면 회원 생성
-            id: profile.id
+            type: "google",
+            google_id: profile.id
           });
           newUser.save(user => {
-            return done(null, user); // 새로운 회원 생성 후 로그인
+            return cb(null, user); // 새로운 회원 생성 후 로그인
           });
-        } catch (e) {
-          return done(e, false);
+        } catch (err) {
+          return cb(err, false);
         }
       }
     )

@@ -1,20 +1,31 @@
-import mongoose, { Schema } from "mongoose";
+const mongoose = require("mongoose");
 
-const UserSchema = new Schema({
+const UserSchema = new mongoose.Schema({
   type: {
-    type: String,
-    enum: type
+    type: String
   },
-  oauth: {
-    google: {
-      id: String,
-      access_token: String
-    }
+  google_id: {
+    type: String
+  },
+  naver_id: {
+    type: String
+  },
+  kakao_id: {
+    type: String
   }
 });
 
 UserSchema.statics.findUserByGoogleId = function(id) {
-  return this.findOne({ "o_auth.google.id": id });
+  console.log(id);
+  return this.findOne({ google_id: id });
 };
 
-export default mongoose.model("User", UserSchema);
+UserSchema.statics.findUserByNaverId = function(id) {
+  return this.findOne({ naver_id: id });
+};
+
+UserSchema.statics.findUserByKakaoId = function(id) {
+  return this.findOne({ kakao_id: id });
+};
+
+module.exports = User = mongoose.model("user", UserSchema);
